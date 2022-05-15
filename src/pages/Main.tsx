@@ -1,57 +1,45 @@
 import * as React from "react";
-import { ProductCardsContainer } from "../components";
-import { ProductCardType } from "../types";
+import { Link } from "react-router-dom";
+import { Dimmer, Loader } from "semantic-ui-react";
+import { CommonPageProps } from ".";
+import { ProductCardsContainer, FloatButton } from "../components";
+import { ProductsContext } from "../contexts";
 
-const cards: ProductCardType[] = [
-    {
-        id: "1",
-        title: "Test 1",
-        usdCost: 10,
-        rubCost: 0,
-        numberInStock: 10,
-        isInTheBasket: true
-    },
-    {
-        id: "2",
-        title: "Test 2",
-        usdCost: 100,
-        rubCost: 0,
-        numberInStock: 0,
-        isInTheBasket: true
-    },
-    {
-        id: "3",
-        title: "Test 3",
-        usdCost: 110,
-        rubCost: 0,
-        numberInStock: 1,
-        isInTheBasket: true
-    },
-    {
-        id: "4",
-        title: "Test 4",
-        usdCost: 6660,
-        rubCost: 0,
-        numberInStock: 0,
-    },
-    {
-        id: "5",
-        title: "Test 5",
-        usdCost: 10,
-        rubCost: 0,
-        numberInStock: 2,
-    },
-    {
-        id: "6",
-        title: "Test 6",
-        usdCost: 123,
-        rubCost: 0,
-        numberInStock: 1,
-        isInTheBasket: true
+export type MainPageProps = CommonPageProps & {}
+
+export const Main: React.FC<MainPageProps> = (props) => {
+    const productsData = React.useContext(ProductsContext);
+
+    const isSomethingInBasket = React.useMemo(() =>
+        productsData?.products?.some(item => item.isInTheBasket),
+        [productsData?.products]);
+
+    if (props.loading) {
+        return (
+            <Dimmer active>
+                <Loader size='large' />
+            </Dimmer>
+        );
     }
-];
 
-
-export const Main = () => {
-    return <ProductCardsContainer cards={cards} />;
+    return (
+        <React.Fragment>
+            <ProductCardsContainer
+                cards={productsData?.products || []}
+                onAddToBasket={props.onAddToBasket}
+                onRemoveFromBasket={props.onRemoveFromBasket}
+            />
+            {isSomethingInBasket && <FloatButton
+                animated
+                basic
+                color='green'
+                size='large'
+                as={Link}
+                to={'/basket'}
+                text='К корзине'
+                iconName='arrow right'
+                side='right'
+            />}
+        </React.Fragment>
+    );
 };

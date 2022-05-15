@@ -3,22 +3,23 @@ import { Button, Icon, Modal } from 'semantic-ui-react';
 
 export type InfoModalProps = {
     open: boolean;
-    onClearClick: () => void;
+    onOkClick: () => void;
+    text: string;
 };
 
 export const InfoModal = React.memo((props: InfoModalProps) => (
     <Modal
         basic
-        onClose={props.onClearClick}
+        onClose={props.onOkClick}
         open={props.open}
         size='small'
     >
-        <Modal.Header style={{ textAlign: 'center' }}>Товары отсутствующие на складе будут убраны из корзины</Modal.Header>
+        <Modal.Header style={{ textAlign: 'center' }}>{props.text}</Modal.Header>
         <Modal.Actions style={{ display: 'flex', justifyContent: 'center' }}>
             <Button
                 color='green'
                 inverted
-                onClick={props.onClearClick}
+                onClick={props.onOkClick}
             >
                 <Icon name='checkmark' /> Хорошо
             </Button>

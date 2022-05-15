@@ -32,6 +32,7 @@ export const Header = React.memo((props: HeaderProps) => (
                         as={Link}
                         to={item.to}
                         title={item.title}
+                        key={item.to}
                     >
                         {item.icon}
                     </Menu.Item>

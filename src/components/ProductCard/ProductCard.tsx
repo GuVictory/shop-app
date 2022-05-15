@@ -1,5 +1,5 @@
 import React from 'react';
-import {  Card, Label } from 'semantic-ui-react';
+import { Card, Label } from 'semantic-ui-react';
 import CurrencyFormat from 'react-currency-format';
 import { ProductCardButton } from '..';
 
@@ -27,8 +27,24 @@ export const ProductCard = React.memo((props: ProductCardProps) => {
                 <Card.Meta>Доступно на складе: {numberInStock}</Card.Meta>
                 <Card.Description>
                     <Label.Group tag>
-                        <Label size='tiny'><CurrencyFormat value={usdCost} displayType={'text'} thousandSeparator={true} prefix={'$'} /></Label>
-                        <Label size='tiny'><CurrencyFormat value={rubCost} displayType={'text'} thousandSeparator={true} prefix={'₽'} /></Label>
+                        <Label size='tiny'>
+                            <CurrencyFormat
+                                value={usdCost}
+                                displayType={'text'}
+                                thousandSeparator={true}
+                                prefix={'$'}
+                                decimalScale={2}
+                            />
+                        </Label>
+                        <Label size='tiny'>
+                            <CurrencyFormat
+                                value={rubCost}
+                                displayType={'text'}
+                                thousandSeparator={true}
+                                prefix={'₽'}
+                                decimalScale={2}
+                            />
+                        </Label>
                     </Label.Group>
                 </Card.Description>
             </Card.Content>

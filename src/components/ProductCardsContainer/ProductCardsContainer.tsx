@@ -28,6 +28,8 @@ export const ProductCardsContainer = React.memo((props: ProductCardsContainerPro
             {props.cards.map(card =>
                 <ProductCard
                     {...card}
+                    id={card.id}
+                    key={card.id}
                     onAddToBasket={props.onAddToBasket}
                     onRemoveFromBasket={props.onRemoveFromBasket}
                 />)}
